@@ -25,7 +25,7 @@
               <v-row>
                 <v-col
                   cols="12"
-                  md="4"
+                  md="6"
                 >
                   <v-text-field
                     v-model="edit.firstname"
@@ -38,7 +38,7 @@
                 </v-col>
                 <v-col
                   cols="12"
-                  md="4"
+                  md="6"
                 >
                   <v-text-field
                     v-model="edit.lastname"
@@ -51,7 +51,7 @@
                 </v-col>
                 <v-col
                   cols="12"
-                  md="4"
+                  md="6"
                 >
                   <v-text-field
                     v-model="edit.email"
@@ -63,7 +63,7 @@
                 </v-col>
                 <v-col
                   cols="12"
-                  md="4"
+                  md="6"
                 >
                   <v-text-field
                     v-model="edit.phone"
@@ -77,7 +77,7 @@
                 </v-col>
                 <v-col
                   cols="12"
-                  md="4"
+                  md="6"
                 >
                   <v-text-field
                     v-model="edit.place"
@@ -90,7 +90,7 @@
                 </v-col>
                 <v-col
                   cols="12"
-                  md="4"
+                  md="6"
                 >
                   <v-menu
                     ref="menu"

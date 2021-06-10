@@ -3,10 +3,8 @@
 </template>
 <script>
 export default{
-	name: 'App',
-	mounted(){
+	beforeMount(){
 		this.$store.commit('sessionUser')
-		this.$store.dispatch('readContact')
 	}
 }
 </script>
