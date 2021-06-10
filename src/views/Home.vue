@@ -8,12 +8,7 @@
         <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
         <v-app-bar-title>Contact</v-app-bar-title>
         <v-spacer></v-spacer>
-        <v-btn icon>
-          <v-icon>mdi-magnify</v-icon>
-        </v-btn>
-        <v-btn icon>
-          <v-icon>mdi-heart</v-icon>
-        </v-btn>
+        <Search></Search>
         <v-btn icon>
           <v-icon>mdi-dots-vertical</v-icon>
         </v-btn>
@@ -42,7 +37,7 @@
         </v-list>
       </v-navigation-drawer>
       <v-sheet id="scrolling-techniques-3" class="overflow-y-auto" max-height="100vh">
-        <v-container style="height: 100vh;margin-top: 230px;margin-bottom: 200px;">
+        <v-container style="height: 100vh;margin-top: 230px;">
           <v-tabs-items v-model="tab">
 						<v-tab-item>
 							<v-row v-if="load">
@@ -122,7 +117,7 @@
               </v-row>
             </v-tab-item>
             <v-tab-item>
-              <AddContact></AddContact>
+            <AddContact></AddContact>
             </v-tab-item>
           </v-tabs-items>
           <Footer style="margin-top: 100px;"></Footer>
@@ -137,13 +132,15 @@ import AddContact from '@/components/AddContact'
 import EditContact from '@/components/EditContact'
 import DeleteContact from '@/components/DeleteContact'
 import Footer from '@/components/Footer'
+import Search from '@/components/Search'
 export default{
-  name: 'App',
+  name: 'Home',
   components: {
     AddContact,
     EditContact,
     DeleteContact,
-    Footer
+    Footer,
+    Search
   },
   data(){
     return{
@@ -173,7 +170,11 @@ export default{
 			this.$store.dispatch('pinnedContact', id)
 		},
 		signOut(){
-			auth.signOut().then(() => this.$router.push('/login'))
+			auth.signOut().then(() => {
+        this.$store.state.user = {}
+        this.$store.state.contact = []
+        this.$router.push('/login')
+      })
 		}
   }
 }
