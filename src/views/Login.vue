@@ -39,6 +39,9 @@
 											</v-col>
 										</v-row>
 									</v-col>
+									<v-col cols="12" md="12">
+										<p>Don't have a account ? <router-link to="/register">Register</router-link></p>
+									</v-col>
 								</v-row>
 							</v-form>
 						</v-card-text>
@@ -62,28 +65,36 @@ export default{
 			password: '',
 			rules: {
 				email: [
-					v => !!v || 'E-mail is required',
-					v => /.+@.+/.test(v) || 'E-mail must be valid',
+					v => !!v || 'Email is required',
+					v => /.+@.+/.test(v) || 'Email must be valid',
 				],
 				password: [
 					v => !!v || 'Password is required',
 					v => v.length <= 10 || 'Password must be less than 10 characters',
 				],
 			},
-			success: null,
-			error: null
+			success: '',
+			error: ''
 		}
 	},
 	methods: {
 		validate() {
-      this.$refs.form.validate()
-    },
-    facebook(e){
+			if(this.$refs.form.validate()){
+				auth.signInWithEmailAndPassword(this.email, this.password).then((res) => {
+					this.success = 'Successfuly login with email ' + res.user.email + '. Please wait a moment...'
+					this.$store.commit('sessionUser')
+					this.$store.dispatch('addUser', res.user).then(() => {
+						setTimeout(() => this.$router.push('/'), 3000)
+					})
+				}).catch(e => this.error = e.message)
+			}
+		},
+		facebook(e){
 			e.preventDefault()
 			let provider = new firebase.auth.FacebookAuthProvider()
 			auth.signInWithPopup(provider).then((res) => {
-				this.$store.commit('sessionUser')
 				this.success = 'Successfuly login with email ' + res.user.email + '. Please wait a moment...'
+				this.$store.commit('sessionUser')
 				this.$store.dispatch('addUser', res.user).then(() => {
 					setTimeout(() => this.$router.push('/'), 3000)
 				})
@@ -93,8 +104,8 @@ export default{
 			e.preventDefault()
 			let provider = new firebase.auth.GoogleAuthProvider()
 			auth.signInWithPopup(provider).then((res) => {
-				this.$store.commit('sessionUser')
 				this.success = 'Successfuly login with email ' + res.user.email + '. Please wait a moment...'
+				this.$store.commit('sessionUser')
 				this.$store.dispatch('addUser', res.user).then(() => {
 					setTimeout(() => this.$router.push('/'), 3000)
 				})
